@@ -3,7 +3,7 @@ import React, { useState, Fragment } from "react";
 import Foods from "./Foods";
 const App = () => {
   const [isChooseFoodPage, setIsChooseFoodPage] = useState(false);
-    const [menuItems, setMenuItems] = useState([
+  const [menuItems, setMenuItems] = useState([
     {
       id: 1,
       name: "Chicken Burger",
@@ -35,30 +35,46 @@ const App = () => {
       desc: "Ice cream - Vanilla ice cream double scoop",
       price: "4",
       image: "ic.jpg",
-    }
+    },
   ]);
- return (
-  <div className="App">
-  <button className="toggleButton" onClick={() => setIsChooseFoodPage(!isChooseFoodPage)}>
-    {isChooseFoodPage ? "Availability Check" : "Order Food"}
-  </button>
-  <h3 className="title">Just Food Online Shop</h3>
-  {!isChooseFoodPage && (
-    <Fragment>
-      <h4 className="subTitle">Menu Availability</h4>
-      <ul className="ulApp">
-        {menuItems.map((item) => {
-          return (
-            <li key={item.id} className="liApp">
-              {item.name} - {item.quantity}
-            </li>
-          );
-        })}
-      </ul>
-    </Fragment>
-  )}
-  {isChooseFoodPage && <Foods foodItems={menuItems}></Foods>}
-</div>
+  const updateMenuItemQuantity = (id, orderQuantity) => {
+    const updatedMenuItems = menuItems.map((item) => {
+      if (item.id === id)
+        return {
+          ...item,
+          quantity: item.quantity - orderQuantity,
+        };
+      return item;
+    });
+    setMenuItems(updatedMenuItems);
+  };
+  return (
+    <div className="App">
+      <button
+        className="toggleButton"
+        onClick={() => setIsChooseFoodPage(!isChooseFoodPage)}
+      >
+        {isChooseFoodPage ? "Availability Check" : "Order Food"}
+      </button>
+      <h3 className="title">Just Food Online Shop</h3>
+      {!isChooseFoodPage && (
+        <Fragment>
+          <h4 className="subTitle">Menu Availability</h4>
+          <ul className="ulApp">
+            {menuItems.map((item) => {
+              return (
+                <li key={item.id} className="liApp">
+                  {item.name} - {item.quantity}
+                </li>
+              );
+            })}
+          </ul>
+        </Fragment>
+      )}
+      {isChooseFoodPage && (
+        <Foods foodItems={menuItems} updateQuantity={updateMenuItemQuantity} />
+      )}
+    </div>
   );
 };
 export default App;
