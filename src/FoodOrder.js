@@ -2,16 +2,27 @@ import React ,{Fragment, useState} from 'react';
 import "./FoodOrder.css";
 import {useContext} from 'react';
 import { foodItemsContext } from './App';
+import ErrorFunctionalBoundary from "./ErrorFunctionalBoundary";
+
 const FoodOrder = (props) => {
- const selectedFood = props.food;
+ const selectedFood = props?.food;
  const [quantity, setQuantity] = useState(1);
  const [totalAmount, setTotalAmount] = useState(selectedFood.price);
  const [isOrdered, setIsOrdered] = useState(false);
  const menuItems = useContext(foodItemsContext);
-
+ const [isErrorCatched, setIsErrorCatched] = useState(false);
 const handleQuantityChange = (event) => {
-   setQuantity(event.target.value);
-   setTotalAmount(selectedFood.price * event.target.value);
+ try{
+      setQuantity(event.target.value);
+    setTotalAmount(selectedFood.price * event.target.value);
+    console.table(selectedFood) //it displays object data in table format in console
+
+  }
+  catch{
+    setIsErrorCatched(true);
+  }
+
+
 }
 
 const handleClick = ()=>{
@@ -24,8 +35,10 @@ const handleClick = ()=>{
   }
  return(
      <Fragment>
+       {!isErrorCatched && (
+         <Fragment>
          <h4 className='selFoodTitle'>{selectedFood.name}</h4>
-         <img className='selFoodImg' src={require(`./images/${selectedFood.image}`)} />
+         <img className='selFoodImg' alt="foodpics" src={require(`./images/${selectedFood.image}`)} />
          <ul className='ulFoodDetails'>
          <li>
           <p className="selFoodDesc">{selectedFood.desc}</p>
@@ -45,7 +58,6 @@ const handleClick = ()=>{
           />
         </li>
         <li className="liDetails">
-          <label for="name"></label>
           <input
             type="text"
             className="inputFields"
@@ -55,7 +67,6 @@ const handleClick = ()=>{
           />
         </li>
         <li>
-          <label for="mobile"></label>
           <input
             type="text"
             className="inputFields"
@@ -79,10 +90,13 @@ const handleClick = ()=>{
             </label>
           </li>
         )}
+      </ul>
+      </Fragment>
+       )}
+       {/* add parantheses to handleQuantityChange in line 57, to see the check back message */}
+       {isErrorCatched && <ErrorFunctionalBoundary />}
 
- </ul>
      </Fragment>
- )
-}
+ )}
 
 export default FoodOrder
