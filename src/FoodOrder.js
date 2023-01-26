@@ -1,11 +1,13 @@
 import React ,{Fragment, useState} from 'react';
 import "./FoodOrder.css";
-
+import {useContext} from 'react';
+import { foodItemsContext } from './App';
 const FoodOrder = (props) => {
  const selectedFood = props.food;
  const [quantity, setQuantity] = useState(1);
  const [totalAmount, setTotalAmount] = useState(selectedFood.price);
  const [isOrdered, setIsOrdered] = useState(false);
+ const menuItems = useContext(foodItemsContext);
 
 const handleQuantityChange = (event) => {
    setQuantity(event.target.value);
@@ -14,8 +16,12 @@ const handleQuantityChange = (event) => {
 
 const handleClick = ()=>{
     setIsOrdered(true);
-    props.updateQuantity(selectedFood.id, quantity);
-}
+    menuItems.map((item) => {
+      if(item.id === selectedFood.id){
+        item.quantity = item.quantity - quantity;
+      }
+    });
+  }
  return(
      <Fragment>
          <h4 className='selFoodTitle'>{selectedFood.name}</h4>

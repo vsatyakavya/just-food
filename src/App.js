@@ -1,6 +1,7 @@
 import "./App.css";
 import React, { useState, Fragment } from "react";
 import Foods from "./Foods";
+export const foodItemsContext = React.createContext();
 const App = () => {
   const [isChooseFoodPage, setIsChooseFoodPage] = useState(false);
   const [menuItems, setMenuItems] = useState([
@@ -37,18 +38,8 @@ const App = () => {
       image: "ic.jpg",
     },
   ]);
-  const updateMenuItemQuantity = (id, orderQuantity) => {
-    const updatedMenuItems = menuItems.map((item) => {
-      if (item.id === id)
-        return {
-          ...item,
-          quantity: item.quantity - orderQuantity,
-        };
-      return item;
-    });
-    setMenuItems(updatedMenuItems);
-  };
   return (
+    <foodItemsContext.Provider value={menuItems}>
     <div className="App">
       <button
         className="toggleButton"
@@ -72,9 +63,10 @@ const App = () => {
         </Fragment>
       )}
       {isChooseFoodPage && (
-        <Foods foodItems={menuItems} updateQuantity={updateMenuItemQuantity} />
+        <Foods foodItems={menuItems}/>
       )}
     </div>
+    </foodItemsContext.Provider>
   );
 };
 export default App;
