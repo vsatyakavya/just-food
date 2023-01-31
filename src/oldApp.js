@@ -1,7 +1,6 @@
 import "./App.css";
 import React, { useState, Fragment } from "react";
 import Foods from "./Foods";
-import styled from "styled-components";
 export const foodItemsContext = React.createContext();
 const App = () => {
   const [isChooseFoodPage, setIsChooseFoodPage] = useState(false);
@@ -39,39 +38,15 @@ const App = () => {
       image: "ic.jpg",
     },
   ]);
-  const StyledtoggleButton = styled.button`
-    float: left;
-    margin: 5px 0px 0px 3px;
-    align-items: center;
-    padding: 6px 14px;
-    border-radius: 8px;
-    border: none;
-    color: #fff;
-    background-color: #367af6;
-    cursor: pointer;
-  `;
-  const StyledtoggleButtontest = styled.button`
-    float: left;
-    margin: 5px 0px 0px 3px;
-    align-items: center;
-    padding: 6px 14px;
-    border-radius: 8px;
-    border: none;
-    color: #fff;
-    background-color: #367af6;
-    cursor: pointer;
-  `;
-
   return (
     <foodItemsContext.Provider value={menuItems}>
     <div className="App">
-      <StyledtoggleButton
+      <button
+        className="toggleButton"
         onClick={() => setIsChooseFoodPage(!isChooseFoodPage)}
       >
         {isChooseFoodPage ? "Availability Check" : "Order Food"}
-      </StyledtoggleButton>
-      <StyledtoggleButton>This is same styled Button</StyledtoggleButton>
-      <StyledtoggleButtontest>This is styled Button</StyledtoggleButtontest>
+      </button>
       <h3 className="title">Just Food Online Shop</h3>
       {!isChooseFoodPage && (
         <Fragment>
