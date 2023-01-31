@@ -1,7 +1,7 @@
 import "./App.css";
 import React, { useState, Fragment } from "react";
 import Foods from "./Foods";
-import styled from "styled-components";
+import styled from "styled-components"; // command to install styled-components `npm install styled-components`
 export const foodItemsContext = React.createContext();
 const App = () => {
   const [isChooseFoodPage, setIsChooseFoodPage] = useState(false);
@@ -65,6 +65,9 @@ const App = () => {
   return (
     <foodItemsContext.Provider value={menuItems}>
     <div className="App">
+      {/* styled-components creates unique class names for each class name */}
+    {/* StyledtoggleButton gets one class name for 2 buttons */}
+    {/* StyledtoggleButtontest  this one gets one unique call name, we can test it in the browser elements*/}
       <StyledtoggleButton
         onClick={() => setIsChooseFoodPage(!isChooseFoodPage)}
       >
