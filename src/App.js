@@ -38,6 +38,14 @@ const App = () => {
       price: "4",
       image: "ic.jpg",
     },
+    {
+      id: 5,
+      name: "Chocolate",
+      quantity: 30,
+      desc: "Chocolate - double layer",
+      price: "4",
+      image: "ic.jpg",
+    }
   ]);
   const StyledtoggleButton = styled.button`
     float: left;
