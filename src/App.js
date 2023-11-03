@@ -8,7 +8,7 @@ const App = () => {
   const [menuItems, setMenuItems] = useState([
     {
       id: 1,
-      name: "Chicken Burger",
+      name: "Veg Burger",
       quantity: 40,
       desc: "Fried chicken burger - lettuce, tomato, cheese and mayonnaise",
       price: "24",
@@ -16,7 +16,7 @@ const App = () => {
     },
     {
       id: 2,
-      name: "Veg Burger",
+      name: "Chicken Sandwich",
       quantity: 30,
       desc: "Plant-based burger - lettuce, tomato, vegan cheese and mayonnaise",
       price: "22",
